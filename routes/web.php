@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ScoreController::class, 'start']);
-Route::post('/', [ScoreController::class, 'submit']);
+
+Route::post('/step/2/chords', [ScoreController::class, 'submitChords']);
+Route::post('/step/3/score-mixing', [ScoreController::class, 'submitChordProWithScore']);

@@ -16,23 +16,27 @@ class ScoreController extends Controller
         return view('start');
     }
 
-    public function submit(Request $request)
+    public function submitChords(Request $request)
     {
         $chordpro = $request['chordpro'];
+
+        $exploded = explode(" ", $chordpro);
 
         $blocks = $this->parseChordPro($chordpro);
 
         $words = [];
 
-        foreach ($blocks as $block)
+        foreach ($exploded as $block)
         {
-            $block_words = explode(' ', $block->getText());
+            $block_words = explode(' ', $block);
             $block_words = array_filter($block_words);
 
             $words = array_merge($words, $block_words);
         }
 
         $hyphens = [];
+
+        // Song is
         $song = new Song();
 
         foreach ($words as $word)
@@ -57,14 +61,11 @@ class ScoreController extends Controller
             $hyphens = array_merge($hyphens, $hyphen_arr);
         }
 
-        return view('update', [
+        return view('step_2', [
             'song' => $song,
             'hyphens' => $hyphens,
             'chordpro' => $chordpro,
         ]);
-
-//        dd($hyphens);
-
     }
 
     private function parseChordPro($chordpro)
@@ -83,5 +84,18 @@ class ScoreController extends Controller
         }
 
         return $blocks;
+    }
+
+
+    public function submitChordProWithScore(Request $request)
+    {
+        $input = $request->input('input');
+
+        $song = Song::parseFromMixedInput($input);
+
+        return view('step_3', [
+            'song' => $song,
+            'input' => $input
+        ]);
     }
 }

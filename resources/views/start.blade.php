@@ -6,7 +6,7 @@
     <p>Vložte text v ChordPro formátu.</p>
 
     <form method="post"
-          action="/">
+          action="/step/2/chords">
         @csrf
 
         <textarea rows="15"
