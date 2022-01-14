@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OlejnikController;
 use App\Http\Controllers\ScoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,6 @@ Route::get('/', [ScoreController::class, 'start']);
 
 Route::post('/step/2/chords', [ScoreController::class, 'submitChords']);
 Route::post('/step/3/score-mixing', [ScoreController::class, 'submitChordProWithScore']);
+
+Route::get('/aleluja', [OlejnikController::class, 'form']);
+Route::post('/aleluja', [OlejnikController::class, 'submit']);
